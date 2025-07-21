@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>البلاغات الطارئة - SpeedX</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background-color: #f5f7fa;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      direction: rtl;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 900px;
+      margin: 50px auto;
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 20px;
+    }
+
+    h2 {
+      color: #4CAF50;
+      text-align: center;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-sizing: border-box;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #45a049;
+      transform: translateY(-2px);
+    }
+
+    button:active {
+      transform: translateY(1px);
+    }
+
+    .success-message {
+      color: green;
+      font-size: 16px;
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .emergency-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      text-align: center;
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>إضافة بلاغ طارئ</h2>
+    <form id="emergencyForm">
+      <input type="text" class="input-field" id="reportTitle" placeholder="عنوان البلاغ" required>
+      <textarea class="input-field" id="reportDescription" rows="4" placeholder="وصف البلاغ" required></textarea>
+      <button type="submit">إرسال البلاغ</button>
+    </form>
+    <div id="successMessage" class="success-message"></div>
+
+    <h3>البلاغات الطارئة</h3>
+    <table class="emergency-table" id="emergencyReportsTable">
+      <thead>
+        <tr>
+          <th>عنوان البلاغ</th>
+          <th>الوصف</th>
+          <th>الحالة</th>
+          <th>إجراء</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- البلاغات ستظهر هنا -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    // تحميل البلاغات الطارئة من localStorage
+    function loadEmergencyReports() {
+      const reports = JSON.parse(localStorage.getItem('emergencyReports')) || [];
+      const reportTable = document.getElementById("emergencyReportsTable").getElementsByTagName("tbody")[0];
+      reportTable.innerHTML = ""; // تنظيف الجدول قبل إضافة البلاغات
+
+      reports.forEach((report, index) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${report.title}</td>
+          <td>${report.description}</td>
+          <td>${report.status}</td>
+          <td><button class="action-btn" onclick="resolveReport(${index})">حل المشكلة</button></td>
+        `;
+        reportTable.appendChild(row);
+      });
+    }
+
+    // إضافة بلاغ طارئ
+    document.getElementById('emergencyForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      
+      const title = document.getElementById('reportTitle').value;
+      const description = document.getElementById('reportDescription').value;
+
+      if (title && description) {
+        const newReport = {
+          title,
+          description,
+          status: "قيد المعالجة"
+        };
+
+        let reports = JSON.parse(localStorage.getItem('emergencyReports')) || [];
+        reports.push(newReport);
+        localStorage.setItem('emergencyReports', JSON.stringify(reports));
+
+        loadEmergencyReports(); // إعادة تحميل البلاغات بعد إضافة بلاغ جديد
+        document.getElementById('successMessage').textContent = "تم إضافة البلاغ بنجاح!";
+      } else {
+        document.getElementById('successMessage').textContent = "يرجى ملء جميع الحقول.";
+      }
+    });
+
+    // تغيير حالة البلاغ إلى "تم الحل"
+    function resolveReport(index) {
+      const reports = JSON.parse(localStorage.getItem('emergencyReports')) || [];
+      reports[index].status = "تم الحل";
+      localStorage.setItem('emergencyReports', JSON.stringify(reports));
+
+      loadEmergencyReports(); // إعادة تحميل البلاغات بعد تحديث الحالة
+    }
+
+    // تحميل البلاغات عند تحميل الصفحة
+    document.addEventListener("DOMContentLoaded", loadEmergencyReports);
+  </script>
+
+</body>
+</html>
