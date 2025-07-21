@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>لوحة تحكم الأدمن - SpeedX</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background-color: #f4f6f7;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #2ecc71;
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+      font-size: 30px;
+      font-weight: bold;
+      border-bottom-left-radius: 30px;
+      border-bottom-right-radius: 30px;
+    }
+
+    .admin-dashboard {
+      padding: 50px 20px;
+      text-align: center;
+      background-color: #ffffff;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 15px;
+      margin-top: 40px;
+    }
+
+    .admin-buttons {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .admin-buttons button {
+      background-color: #3498db;
+      color: white;
+      padding: 15px 25px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 10px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .admin-buttons button:hover {
+      background-color: #2980b9;
+      transform: translateY(-3px);
+    }
+
+    .admin-buttons button:active {
+      transform: translateY(1px);
+    }
+
+    .loader {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: none;
+    }
+
+    .spinner {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #3498db;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 2s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <img src="../images/logo.png" alt="Logo" class="logo">
+    <h2>👑 لوحة تحكم الأدمن</h2>
+    <button onclick="logout()">🚪 تسجيل الخروج</button>
+  </header>
+
+  <main class="admin-dashboard">
+    <h3>⚙️ إدارة الموقع</h3>
+    <div class="admin-buttons">
+      <button onclick="manageUsers()">👥 إدارة المشتركين</button>
+      <button onclick="sendNotification()">📢 إرسال إشعار للمشتركين</button>
+      <button onclick="manageBills()">💳 عرض وإدارة الفواتير</button>
+      <button onclick="printReports()">📄 طباعة تقارير جميع المشتركين</button>
+      <button onclick="exportData()">💾 حفظ أو تحميل نسخة من البيانات</button>
+      <button onclick="changePassword()">🔐 تغيير كلمة المرور للأدمن</button>
+      <button onclick="printUserData()">🖨️ طباعة بيانات المشترك</button>
+    </div>
+  </main>
+
+  <div class="loader" id="loader">
+    <div class="spinner"></div>
+  </div>
+
+  <script>
+    function logout() {
+      localStorage.removeItem("loggedInUser");
+      window.location.href = "../html/login.html";
+    }
+
+    function manageUsers() {
+      window.location.href = "../html/manage_users.html";
+    }
+
+    function sendNotification() {
+      window.location.href = "../html/send_notification.html";
+    }
+
+    function manageBills() {
+      window.location.href = "../html/admin_bills.html";
+    }
+
+    function printReports() {
+      window.print();
+    }
+
+    function exportData() {
+      alert("📂 سيتم تحميل جميع بيانات الموقع كـ JSON.");
+    }
+
+    function changePassword() {
+      alert("🔐 سيتم تفعيل تغيير كلمة المرور في التحديث القادم.");
+    }
+
+    function printUserData() {
+      const name = "محمد علي";
+      const phone = "0123456789";
+      const location = "الرياض";
+      const plan = "باقة 50GB";
+      const date = "2023-05-15";
+      const price = "50"; 
+
+      const printUrl = `../html/print-user.html?name=${encodeURIComponent(name)}&phone=${encodeURIComponent(phone)}&location=${encodeURIComponent(location)}&plan=${encodeURIComponent(plan)}&date=${encodeURIComponent(date)}&price=${encodeURIComponent(price)}`;
+
+      window.location.href = printUrl;
+    }
+
+    function showLoader() {
+      document.getElementById("loader").style.display = "block";
+    }
+
+    function hideLoader() {
+      document.getElementById("loader").style.display = "none";
+    }
+  </script>
+</body>
+</html>
