@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>إرسال إشعار - SpeedX</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background-color: #f5f7fa;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      direction: rtl;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 600px;
+      margin: 50px auto;
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 20px;
+    }
+
+    h2 {
+      color: #4CAF50;
+      text-align: center;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-sizing: border-box;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #45a049;
+      transform: translateY(-2px);
+    }
+
+    button:active {
+      transform: translateY(1px);
+    }
+
+    .success-message {
+      color: green;
+      font-size: 16px;
+      text-align: center;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>إرسال إشعار</h2>
+    <form id="notificationForm">
+      <input type="text" class="input-field" id="phoneNumber" placeholder="رقم الجوال" required>
+      <input type="text" class="input-field" id="title" placeholder="عنوان الإشعار" required>
+      <textarea class="input-field" id="message" rows="4" placeholder="نص الإشعار" required></textarea>
+      <button type="submit">إرسال الإشعار</button>
+    </form>
+    <div id="successMessage" class="success-message"></div>
+  </div>
+
+  <script>
+    document.getElementById('notificationForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const phoneNumber = document.getElementById('phoneNumber').value;
+      const title = document.getElementById('title').value;
+      const message = document.getElementById('message').value;
+
+      // تحقق بسيط من الإدخال
+      if (phoneNumber && title && message) {
+        // هنا يمكن إرسال البيانات أو تخزينها في localStorage أو إرسالها إلى الخادم
+        document.getElementById('successMessage').textContent = "تم إرسال الإشعار بنجاح!";
+        // يمكنك استبدال هذا بالإرسال الفعلي للإشعار
+        localStorage.setItem('notification', JSON.stringify({ phoneNumber, title, message }));
+      } else {
+        document.getElementById('successMessage').textContent = "يرجى ملء جميع الحقول.";
+      }
+    });
+  </script>
+
+</body>
+</html>
