@@ -69,7 +69,6 @@
     .action-btn:active {
       transform: translateY(1px);
     }
-
   </style>
 </head>
 <body>
@@ -87,7 +86,7 @@
         </tr>
       </thead>
       <tbody id="billsTableBody">
-        <!-- بيانات الفواتير ستظهر هنا -->
+        <!-- سيتم إضافة الفواتير هنا -->
       </tbody>
     </table>
   </div>
@@ -103,7 +102,7 @@
     const table = document.getElementById("billsTableBody");
 
     function renderBills() {
-      table.innerHTML = "";
+      table.innerHTML = ""; // تنظيف الجدول قبل إضافة الفواتير
       bills.forEach((bill, index) => {
         const row = document.createElement("tr");
         row.innerHTML = `
@@ -136,7 +135,7 @@
     }
 
     // عرض الفواتير عند تحميل الصفحة
-    renderBills();
+    document.addEventListener("DOMContentLoaded", renderBills);
   </script>
 
 </body>
