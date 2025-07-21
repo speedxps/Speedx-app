@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>إدارة الفواتير - SpeedX</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background-color: #f5f7fa;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      direction: rtl;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 900px;
+      margin: 50px auto;
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 20px;
+    }
+
+    h2 {
+      color: #4CAF50;
+      text-align: center;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      text-align: center;
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    .action-btn {
+      padding: 6px 12px;
+      font-size: 14px;
+      border-radius: 6px;
+      background-color: #FF9800;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .action-btn:hover {
+      background-color: #FB8C00;
+      transform: translateY(-2px);
+    }
+
+    .action-btn:active {
+      transform: translateY(1px);
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>إدارة الفواتير</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>المشترك</th>
+          <th>الشهر</th>
+          <th>القيمة</th>
+          <th>الحالة</th>
+          <th>إجراء</th>
+        </tr>
+      </thead>
+      <tbody id="billsTableBody">
+        <!-- بيانات الفواتير ستظهر هنا -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    // بيانات الفواتير الافتراضية
+    const bills = [
+      { user: "noor", month: "يونيو 2025", amount: "90 شيكل", status: "مدفوعة" },
+      { user: "mohammed", month: "مايو 2025", amount: "90 شيكل", status: "غير مدفوعة" },
+      { user: "noor", month: "أبريل 2025", amount: "90 شيكل", status: "مدفوعة" }
+    ];
+
+    const table = document.getElementById("billsTableBody");
+
+    function renderBills() {
+      table.innerHTML = "";
+      bills.forEach((bill, index) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${bill.user}</td>
+          <td>${bill.month}</td>
+          <td>${bill.amount}</td>
+          <td>${bill.status}</td>
+          <td>
+            <button class="action-btn" onclick="printBill(${index})">🖨️ طباعة</button>
+          </td>
+        `;
+        table.appendChild(row);
+      });
+    }
+
+    function printBill(index) {
+      const bill = bills[index];
+      const printContent = `
+        <h2>فاتورة المشترك: ${bill.user}</h2>
+        <p>📅 الشهر: ${bill.month}</p>
+        <p>💳 القيمة: ${bill.amount}</p>
+        <p>✅ الحالة: ${bill.status}</p>
+      `;
+      const printWindow = window.open('', '', 'height=600,width=800');
+      printWindow.document.write('<html><head><title>طباعة الفاتورة</title></head><body>');
+      printWindow.document.write(printContent);
+      printWindow.document.write('</body></html>');
+      printWindow.document.close();
+      printWindow.print();
+    }
+
+    // عرض الفواتير عند تحميل الصفحة
+    renderBills();
+  </script>
+
+</body>
+</html>
