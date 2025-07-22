@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>لوحة تحكم الأدمن - SpeedX</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="css/style.css"> <!-- تم تعديل المسار -->
   <style>
     body {
       font-family: 'Cairo', sans-serif;
@@ -87,7 +87,7 @@
 <body>
 
   <header class="header">
-    <img src="../images/logo.png" alt="Logo" class="logo">
+    <img src="images/logo.png" alt="Logo" class="logo"> <!-- تم تعديل المسار -->
     <h2>👑 لوحة تحكم الأدمن</h2>
     <button onclick="logout()">🚪 تسجيل الخروج</button>
   </header>
@@ -112,19 +112,19 @@
   <script>
     function logout() {
       localStorage.removeItem("loggedInUser");
-      window.location.href = "../html/login.html";
+      window.location.href = "html/login.html"; <!-- تم تعديل المسار -->
     }
 
     function manageUsers() {
-      window.location.href = "../html/manage_users.html";
+      window.location.href = "html/manage_users.html"; <!-- تم تعديل المسار -->
     }
 
     function sendNotification() {
-      window.location.href = "../html/send_notification.html";
+      window.location.href = "html/send_notification.html"; <!-- تم تعديل المسار -->
     }
 
     function manageBills() {
-      window.location.href = "../html/admin_bills.html";
+      window.location.href = "html/admin_bills.html"; <!-- تم تعديل المسار -->
     }
 
     function printReports() {
@@ -147,7 +147,7 @@
       const date = "2023-05-15";
       const price = "50"; 
 
-      const printUrl = `../html/print-user.html?name=${encodeURIComponent(name)}&phone=${encodeURIComponent(phone)}&location=${encodeURIComponent(location)}&plan=${encodeURIComponent(plan)}&date=${encodeURIComponent(date)}&price=${encodeURIComponent(price)}`;
+      const printUrl = `html/print-user.html?name=${encodeURIComponent(name)}&phone=${encodeURIComponent(phone)}&location=${encodeURIComponent(location)}&plan=${encodeURIComponent(plan)}&date=${encodeURIComponent(date)}&price=${encodeURIComponent(price)}`;
 
       window.location.href = printUrl;
     }
