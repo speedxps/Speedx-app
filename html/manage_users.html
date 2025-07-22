@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>إدارة المستخدمين - SpeedX</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="css/style.css"> <!-- تم تعديل المسار -->
   <style>
     body {
       font-family: 'Cairo', sans-serif;
@@ -124,7 +124,7 @@
 
     function printUser(index) {
       const user = users[index];
-      const printUrl = `../html/print-user.html?name=${encodeURIComponent(user.username)}&role=${encodeURIComponent(user.role)}`;
+      const printUrl = `html/print-user.html?name=${encodeURIComponent(user.username)}&role=${encodeURIComponent(user.role)}`; <!-- تعديل المسار -->
       window.location.href = printUrl;
     }
 
